@@ -48,7 +48,6 @@
   service:
     name: sentinel_{{ redis_sentinel_port }}
     enabled: yes
-    daemon_reload: "{{ True if ansible_service_mgr|default() == 'systemd' else omit }}"
   when: redis_as_service
 
 # Check then create log dir to prevent aggressively overwriting permissions

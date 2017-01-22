@@ -5,7 +5,7 @@
     state: restarted
   when: redis_as_service
 
-- name: "restart sentinel {{ redis_sentinel_port }}"
+- name: "restart sentinel"
   service:
     name: sentinel_{{ redis_sentinel_port }}
     state: restarted

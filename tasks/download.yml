@@ -35,6 +35,9 @@
     dest: /usr/local/src/redis-{{ redis_version }}.tar.gz
   when: redis_tarball
 
+- name: ensure old builds are cleared
+  file: path=/usr/local/src/redis-{{ redis_version }} state=absent
+
 - name: extract redis tarball
   unarchive:
     src: /usr/local/src/redis-{{ redis_version }}.tar.gz

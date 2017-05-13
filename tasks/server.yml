@@ -19,7 +19,7 @@
       - default/redis.init.j2
       paths:
         - ../templates
-  when: redis_as_service and ansible_service_mgr|default() != 'systemd'
+  when: redis_as_service and ansible_service_mgr|default() != "systemd"
 
 - name: create redis systemd service
   template:
@@ -32,7 +32,8 @@
       - default/redis.service.j2
       paths:
         - ../templates
-  when: redis_as_service and ansible_service_mgr|default() == 'systemd'
+  register: redis_unit_file
+  when: redis_as_service and ansible_service_mgr|default() == "systemd"
 
 - name: create systemd tmpfiles configuration
   template:
@@ -43,6 +44,13 @@
     - redis_as_service
     - ansible_service_mgr|default() == 'systemd'
     - (redis_pidfile|dirname).startswith('/var/run') or (redis_pidfile|dirname).startswith('/run')
+
+- name: reload systemd daemon
+  command: systemctl daemon-reload
+  when:
+    - redis_as_service
+    - ansible_service_mgr|default() == "systemd"
+    - redis_unit_file|changed
 
 - name: set redis to start at boot
   service:

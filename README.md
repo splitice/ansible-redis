@@ -2,9 +2,10 @@
 
 [![Build Status](https://travis-ci.org/DavidWittman/ansible-redis.svg?branch=master)](https://travis-ci.org/DavidWittman/ansible-redis) [![Ansible Galaxy](https://img.shields.io/badge/galaxy-DavidWittman.redis-blue.svg?style=flat)](https://galaxy.ansible.com/detail#/role/730)
 
- - Requires Ansible 1.8.0+
+ - Ansible 2.1+
+   - Ansible 1.9.x is currently supported, but it will be deprecated soon
  - Compatible with most versions of Ubuntu/Debian and RHEL/CentOS 6.x
-
+ 
 ## Contents
 
  1. [Installation](#installation)
@@ -236,6 +237,9 @@ redis_service_name: "redis_{{ redis_port }}"
 redis_bind: 0.0.0.0
 redis_port: 6379
 redis_password: false
+# Slave replication options
+redis_min_slaves_to_write: 0
+redis_min_slaves_max_lag: 10
 redis_tcp_backlog: 511
 redis_tcp_keepalive: 0
 # Max connected clients at a time
@@ -282,12 +286,16 @@ redis_save:
   - 900 1
   - 300 10
   - 60 10000
+redis_stop_writes_on_bgsave_error: "yes"
+redis_rdbcompression: "yes"
+redis_rdbchecksum: "yes"
 redis_appendonly: "no"
 redis_appendfilename: "appendonly.aof"
 redis_appendfsync: "everysec"
 redis_no_appendfsync_on_rewrite: "no"
 redis_auto_aof_rewrite_percentage: "100"
 redis_auto_aof_rewrite_min_size: "64mb"
+redis_notify_keyspace_events: '""'
 
 ## Redis sentinel configs
 # Set this to true on a host to configure it as a Sentinel

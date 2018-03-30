@@ -15,7 +15,6 @@
     - "{{ 'libc6-dev-i386' if redis_make_32bit|bool else 'gcc' }}"
     - "{{ 'gcc-multilib' if redis_make_32bit|bool else 'gcc' }}"
     - "{{ 'g++-multilib' if redis_make_32bit|bool else 'gcc' }}"
-    - "{{ 'libjemalloc1:i386' if redis_make_32bit|bool else 'gcc' }}"
   when: ansible_os_family == "Debian"
 
 - name: install redhat dependencies

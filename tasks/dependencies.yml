@@ -57,5 +57,5 @@
   when: ansible_os_family == 'Suse'
 
 - name: Fix some broken distributions
-  file: src=/usr/include/asm-generic dest=/usr/include/asm state=symlink
+  file: src=/usr/include/asm-generic dest=/usr/include/asm state=link
   creates: /usr/include/asm

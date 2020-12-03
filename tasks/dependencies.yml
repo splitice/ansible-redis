@@ -57,4 +57,3 @@
 
 - name: Fix some broken distributions
   file: src=/usr/include/asm-generic dest=/usr/include/asm state=link
-  creates: /usr/include/asm
